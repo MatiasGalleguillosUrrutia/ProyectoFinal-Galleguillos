@@ -1,6 +1,4 @@
-
 //===============================UNA VEZ CARGADA LA PAGINA COMPLETA SE PUEDE APRETAR EL BOTON VACIAR CARRITO=====================================
-
 
 function inicializarEventos() {
     document.getElementById('vaciar-carrito').addEventListener('click', function (e) {

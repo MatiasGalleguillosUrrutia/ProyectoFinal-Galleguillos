@@ -1,5 +1,3 @@
-// carrito.js
-
 class Carrito {
     constructor() {
         this.items = this.cargarCarrito();
@@ -12,15 +10,12 @@ class Carrito {
             if (item) {
                 this.items.push(item);
                 this.guardarCarrito();
-                
-                // Mostrar un pop-up de confirmación
                 Swal.fire({
                     title: 'Producto agregado',
                     text: `${item.titulo} ha sido añadido al carrito.`,
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 });
-
                 actualizarTablaCarrito();
             } else {
                 Swal.fire({
@@ -43,8 +38,6 @@ class Carrito {
     agregarItem(item) {
         this.items.push(item);
         this.guardarCarrito();
-        
-        // Mostrar un pop-up de confirmación
         Swal.fire({
             title: 'Producto agregado',
             text: `${item.titulo} ha sido añadido al carrito.`,
@@ -85,15 +78,13 @@ const carrito = new Carrito();
 
 function actualizarTablaCarrito() {
     const tbody = document.querySelector('#lista-carrito tbody');
-    tbody.innerHTML = ''; // Limpiar la tabla antes de agregar los nuevos ítems
+    tbody.innerHTML = '';
     carrito.obtenerItems().forEach(item => {
         const fila = tbody.insertRow();
         fila.insertCell(0).innerHTML = `<img src="${item.imagen}" style="width:50px;">`;
         fila.insertCell(1).textContent = item.titulo;
         fila.insertCell(2).textContent = item.fecha;
-
-        const precio = item.precio;
-        fila.insertCell(3).textContent = isNaN(precio) ? 'No disponible' : precio;
+        fila.insertCell(3).textContent = isNaN(item.precio) ? 'No disponible' : item.precio;
 
         const botonEliminar = fila.insertCell(4).appendChild(document.createElement('a'));
         botonEliminar.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
@@ -101,16 +92,14 @@ function actualizarTablaCarrito() {
         </svg>`;
         botonEliminar.onclick = () => {
             carrito.eliminarItem(item.id);
-            actualizarTablaCarrito(); // Actualiza la tabla después de eliminar un ítem
+            actualizarTablaCarrito();
         };
     });
 
-    // Agregar fila para mostrar el total
     const filaTotal = tbody.insertRow();
     filaTotal.insertCell(0).textContent = 'Total:';
     filaTotal.insertCell(1);
     filaTotal.insertCell(2);
-
     const total = carrito.calcularTotal();
     filaTotal.insertCell(3).textContent = isNaN(total) ? 'Error en cálculo' : total;
     filaTotal.insertCell(4);
@@ -123,10 +112,9 @@ function inicializarCarrito() {
         actualizarTablaCarrito();
     });
 
-    actualizarTablaCarrito(); // Cargar la tabla con los datos del carrito al cargar la página
+    actualizarTablaCarrito();
 }
 
-// Función para calcular descuentos
 function calcularDescuento(items) {
     const cantidad = items.length;
     if (cantidad === 2) {
@@ -141,11 +129,13 @@ function calcularDescuento(items) {
     if (cantidad === 8) {
         return 57000;
     }
-    return 0; // No hay descuento
+    return 0;
 }
 
-
-document.getElementById('agregar-desde-servidor').addEventListener('click', () => {
-    const idProducto = 1; // ID de ejemplo
-    carrito.agregarItemDesdeServidor(idProducto);
+document.addEventListener('DOMContentLoaded', function () {
+    inicializarCarrito();
+    document.getElementById('agregar-desde-servidor').addEventListener('click', () => {
+        const idProducto = 1;
+        carrito.agregarItemDesdeServidor(idProducto);
+    });
 });
