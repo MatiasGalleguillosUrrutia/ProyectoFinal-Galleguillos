@@ -1,5 +1,3 @@
-//==========================REALIZAMOS UN FETCH PARA OBTENER LA LISTA DE PRODUCTOS EN JSON================
-
 let Array_Clases;
 
 async function cargarClasesDesdeJSON() {
