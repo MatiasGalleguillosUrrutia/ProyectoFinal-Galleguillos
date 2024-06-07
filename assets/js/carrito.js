@@ -135,3 +135,6 @@ function calcularDescuento(items) {
 document.addEventListener('DOMContentLoaded', function () {
     inicializarCarrito();
 });
+
+
+// Se elimina una linea que no se ocupaba.
