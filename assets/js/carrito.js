@@ -134,8 +134,4 @@ function calcularDescuento(items) {
 
 document.addEventListener('DOMContentLoaded', function () {
     inicializarCarrito();
-    document.getElementById('agregar-desde-servidor').addEventListener('click', () => {
-        const idProducto = 1;
-        carrito.agregarItemDesdeServidor(idProducto);
-    });
 });
